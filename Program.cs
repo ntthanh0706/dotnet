@@ -16,13 +16,19 @@ var app = builder.Build();
 
 PrepDb.PrePopulation(app);
 // Configure the HTTP request pipeline.
-if (app.Environment.IsDevelopment())
+if (app.Environment.IsDevelopment() || app.Environment.IsProduction())
 {
+    app.UseDeveloperExceptionPage();
     app.UseSwagger();
     app.UseSwaggerUI();
 }
 
-app.UseHttpsRedirection();
+// app.UseHttpsRedirection();
+app.UseCors(builder => builder.AllowAnyOrigin().AllowAnyMethod().AllowAnyHeader());
+app.UseAuthentication();
+app.UseAuthorization();
+app.MapControllers();
+
 
 var summaries = new[]
 {

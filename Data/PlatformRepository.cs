@@ -3,16 +3,9 @@ using PlatformService.Models;
 
 namespace PlatformService.Data
 {
-    public class PlatformRepository : IPlatformRepository
+    public class PlatformRepository(AppDbContext context) : IPlatformRepository
     {
-        private readonly AppDbContext _context;
-
-        public PlatformRepository(AppDbContext context)
-        {
-            _context = context;
-        }
-
-        
+        private readonly AppDbContext _context = context;
 
         public void CreatePlatform(Platform platform)
         {
@@ -31,7 +24,7 @@ namespace PlatformService.Data
         public Platform GetPlatformById(int id)
         {
             var platform = _context.Platforms.FirstOrDefault(p => p.Id == id);
-            return platform == null ? throw new InvalidOperationException("No platform found with the provided ID.") : platform;
+            return platform ?? throw new InvalidOperationException("No platform found with the provided ID.");
         }
 
 

@@ -10,15 +10,12 @@ namespace PlatformService.Dtos
     {
 
         [Required]
-
-        public string Name { get; set; }
-
-        [Required]
-
-        public string Publisher { get; set; }
+        public string? Name { get; set; }
 
         [Required]
+        public string? Publisher { get; set; }
 
-        public string Cost { get; set; }
+        [Required]
+        public string? Cost { get; set; }
     }
 }
